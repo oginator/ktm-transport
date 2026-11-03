@@ -1,7 +1,27 @@
 const nav = document.querySelector(".nav");
 const menuBtn = document.querySelector(".menu-btn");
-if (menuBtn) {
-  menuBtn.addEventListener("click", () => nav.classList.toggle("open"));
+
+function closeMenu() {
+  if (!nav) return;
+  nav.classList.remove("open");
+  if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+}
+
+if (menuBtn && nav) {
+  menuBtn.setAttribute("aria-expanded", "false");
+  menuBtn.addEventListener("click", () => {
+    const open = nav.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", String(open));
+  });
+  nav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setTimeout(closeMenu, 0));
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 860) closeMenu();
+  });
 }
 
 const form = document.querySelector("#upit");
