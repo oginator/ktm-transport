@@ -14,7 +14,10 @@ if (menuBtn && nav) {
     menuBtn.setAttribute("aria-expanded", String(open));
   });
   nav.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => setTimeout(closeMenu, 0));
+    link.addEventListener("click", () => {
+      // Keep the link visible until navigation starts.
+      requestAnimationFrame(closeMenu);
+    });
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeMenu();
