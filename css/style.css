@@ -321,7 +321,8 @@ textarea { min-height: 140px; resize: vertical; }
   .about img { height: 260px; }
   .kpis, .specs { grid-template-columns: 1fr; }
   .mobile-cta { display: flex; }
-  body { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+  body { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+  .section { scroll-margin-bottom: 96px; }
   .hero { min-height: 78vh; }
   .hero img.bg { object-position: 58% 40%; }
   .hero::after {
