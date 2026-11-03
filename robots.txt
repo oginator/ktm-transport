@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://prevoz-selidbe-ktm.com/sitemap.xml
