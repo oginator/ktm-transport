@@ -229,9 +229,25 @@ h1, h2, h3, .logo-text, .eyebrow, .btn {
   border-radius: var(--radius);
   overflow: hidden;
 }
-.service-row img { width: 100%; height: 100%; min-height: 200px; object-fit: cover; }
-.service-row div { padding: clamp(16px, 3vw, 24px); min-width: 0; }
+.service-row > img,
+.service-photos img {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  object-fit: cover;
+}
+.service-row > div:not(.service-photos) { padding: clamp(16px, 3vw, 24px); min-width: 0; }
 .service-row h2 { font-size: clamp(22px, 3vw, 28px); margin: 0 0 8px; }
+.service-photos {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+  min-height: 260px;
+  background: #111;
+}
+.service-photos img { min-height: 0; }
+.service-photos img:first-child { grid-row: 1 / span 2; }
 
 .specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
 .spec { background: var(--paper); border-radius: 12px; padding: 12px; }
@@ -317,7 +333,9 @@ textarea { min-height: 140px; resize: vertical; }
   .about, .contact-grid, .blog-grid, .reviews, .footer-grid, .service-row {
     grid-template-columns: 1fr;
   }
-  .service-row img { min-height: 180px; max-height: 220px; }
+  .service-row > img { min-height: 180px; max-height: 220px; }
+  .service-photos { min-height: 280px; }
+  .service-photos img { min-height: 0; max-height: none; }
   .about img { height: 260px; }
   .kpis, .specs { grid-template-columns: 1fr; }
   .mobile-cta { display: flex; }
