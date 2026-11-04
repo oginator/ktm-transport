@@ -1,5 +1,12 @@
+const header = document.querySelector(".site-header");
 const nav = document.querySelector(".nav");
 const menuBtn = document.querySelector(".menu-btn");
+
+if (header) {
+  const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 12);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+}
 
 function closeMenu() {
   if (!nav) return;
@@ -23,7 +30,7 @@ if (menuBtn && nav) {
     if (e.key === "Escape") closeMenu();
   });
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 860) closeMenu();
+    if (window.innerWidth > 980) closeMenu();
   });
 }
 
