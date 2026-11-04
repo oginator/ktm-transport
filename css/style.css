@@ -168,7 +168,9 @@ h1, h2, h3, .logo-text, .eyebrow, .btn {
 .service img { width: 100%; height: 190px; object-fit: cover; }
 .service div { padding: 18px; }
 
-.reviews { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.reviews-more { margin: 18px 0 0; }
+.reviews-more a { color: var(--red); font-weight: 700; text-decoration: none; }
 .review { padding: clamp(20px, 3vw, 28px); }
 .stars { color: #c9a227; letter-spacing: 2px; margin-bottom: 8px; }
 .review p { font-size: clamp(17px, 2vw, 20px); margin: 0 0 16px; }
