@@ -69,8 +69,8 @@ h1, h2, h3, .logo-text, .eyebrow, .btn {
   z-index: 1;
 }
 .brand img {
-  width: 46px;
-  height: 46px;
+  width: auto;
+  height: 50px;
   object-fit: contain;
   background: transparent;
   border-radius: 0;
@@ -388,8 +388,8 @@ textarea { min-height: 140px; resize: vertical; }
   justify-self: start;
 }
 .footer-brand img {
-  width: 168px;
-  height: 168px;
+  width: 250px;
+  height: auto;
   object-fit: contain;
   background: transparent;
 }
@@ -402,7 +402,7 @@ textarea { min-height: 140px; resize: vertical; }
   padding-top: 0;
 }
 .footer-mini .footer-brand { margin: 0; }
-.footer-mini .footer-brand img { width: 88px; height: 88px; }
+.footer-mini .footer-brand img { width: 140px; height: auto; }
 .copy { border-top: 1px solid #2a2a2a; margin-top: 24px; padding-top: 16px; color: #9b958c; font-size: 14px; }
 
 .mobile-cta {
@@ -454,7 +454,7 @@ textarea { min-height: 140px; resize: vertical; }
     gap: 18px 16px;
   }
   .footer-grid > :nth-child(n+3) { grid-column: 1 / -1; }
-  .footer-brand img { width: 120px; height: 120px; }
+  .footer-brand img { width: 180px; height: auto; }
   .service-row > img {
     width: 100%;
     height: 220px;
