@@ -37,11 +37,28 @@ const form = document.querySelector("#upit");
 if (form) {
   const status = form.querySelector(".form-status");
   const button = form.querySelector('[type="submit"]');
+  const MAIL = "zion.mladenovac@gmail.com";
   const setStatus = (kind, text) => {
     if (!status) return;
     status.hidden = false;
     status.className = `form-status ${kind}`;
     status.textContent = text;
+  };
+  const inquiryText = (data) =>
+    [
+      "Upit sa sajta KTM",
+      `Ime: ${data.ime || ""}`,
+      `Telefon: ${data.telefon || ""}`,
+      `Email: ${data.email || "nije naveden"}`,
+      `Usluga: ${data.usluga || ""}`,
+      `Poruka: ${data.poruka || ""}`,
+    ].join("\n");
+  const openMail = (data) => {
+    const url =
+      `mailto:${MAIL}` +
+      `?subject=${encodeURIComponent("Upit sa sajta KTM — " + (data.usluga || "upit"))}` +
+      `&body=${encodeURIComponent(inquiryText(data))}`;
+    window.location.href = url;
   };
 
   form.addEventListener("submit", async (e) => {
@@ -54,16 +71,18 @@ if (form) {
     }
 
     const payload = {
+      name: data.ime || "",
       ime: data.ime || "",
       telefon: data.telefon || "",
-      email: data.email || "nije-naveden@prevoz-selidbe-ktm.com",
+      email: data.email || MAIL,
       usluga: data.usluga || "",
+      message: inquiryText(data),
       poruka: data.poruka || "",
       _subject: `Upit sa sajta KTM — ${data.usluga || "upit"}`,
       _template: "table",
       _captcha: "false",
+      _replyto: data.email || MAIL,
     };
-    if (data.email) payload._replyto = data.email;
 
     const oldLabel = button ? button.textContent : "";
     if (button) {
@@ -73,7 +92,7 @@ if (form) {
     if (status) status.hidden = true;
 
     try {
-      const res = await fetch("https://formsubmit.co/ajax/zion.mladenovac@gmail.com", {
+      const res = await fetch(`https://formsubmit.co/ajax/${MAIL}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,13 +102,22 @@ if (form) {
       });
       const result = await res.json().catch(() => ({}));
       const ok = result.success === true || result.success === "true";
-      if (!ok) throw new Error(result.message || "Slanje nije uspelo.");
+      const msg = String(result.message || "");
+      if (!ok) throw new Error(msg || "Slanje nije uspelo.");
       form.reset();
-      setStatus("ok", "Upit je poslat na email. Javićemo se uskoro.");
+      if (/activat|confirm|verify|check your email/i.test(msg)) {
+        setStatus(
+          "ok",
+          "Prvi upit aktivira formu. U Gmailu (i u Spam) kliknite na mejl FormSubmit — posle toga svi upiti stižu."
+        );
+      } else {
+        setStatus("ok", "Upit je poslat na email. Ako ga ne vidite, pogledajte Spam.");
+      }
     } catch {
+      openMail(data);
       setStatus(
-        "err",
-        "Upit nije otišao. Pozovite 064 3773 269 ili pišite na zion.mladenovac@gmail.com."
+        "ok",
+        "Otvara se vaš email da pošaljete upit na zion.mladenovac@gmail.com. Ako se ne otvori, pozovite 064 3773 269."
       );
     } finally {
       if (button) {
