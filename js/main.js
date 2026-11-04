@@ -53,13 +53,6 @@ if (form) {
       `Usluga: ${data.usluga || ""}`,
       `Poruka: ${data.poruka || ""}`,
     ].join("\n");
-  const openMail = (data) => {
-    const url =
-      `mailto:${MAIL}` +
-      `?subject=${encodeURIComponent("Upit sa sajta KTM — " + (data.usluga || "upit"))}` +
-      `&body=${encodeURIComponent(inquiryText(data))}`;
-    window.location.href = url;
-  };
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -70,20 +63,6 @@ if (form) {
       return;
     }
 
-    const payload = {
-      name: data.ime || "",
-      ime: data.ime || "",
-      telefon: data.telefon || "",
-      email: data.email || MAIL,
-      usluga: data.usluga || "",
-      message: inquiryText(data),
-      poruka: data.poruka || "",
-      _subject: `Upit sa sajta KTM — ${data.usluga || "upit"}`,
-      _template: "table",
-      _captcha: "false",
-      _replyto: data.email || MAIL,
-    };
-
     const oldLabel = button ? button.textContent : "";
     if (button) {
       button.disabled = true;
@@ -92,32 +71,32 @@ if (form) {
     if (status) status.hidden = true;
 
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${MAIL}`, {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          access_key: "309cfb2b-7fee-4ed7-8db6-bc837bf0e49c",
+          from_name: "KTM sajt",
+          subject: `Upit sa sajta KTM — ${data.usluga || "upit"}`,
+          name: data.ime || "",
+          telefon: data.telefon || "",
+          email: data.email || MAIL,
+          usluga: data.usluga || "",
+          message: inquiryText(data),
+          botcheck: "",
+        }),
       });
       const result = await res.json().catch(() => ({}));
-      const ok = result.success === true || result.success === "true";
-      const msg = String(result.message || "");
-      if (!ok) throw new Error(msg || "Slanje nije uspelo.");
+      if (!result.success) throw new Error(result.message || "Slanje nije uspelo.");
       form.reset();
-      if (/activat|confirm|verify|check your email/i.test(msg)) {
-        setStatus(
-          "ok",
-          "Prvi upit aktivira formu. U Gmailu (i u Spam) kliknite na mejl FormSubmit — posle toga svi upiti stižu."
-        );
-      } else {
-        setStatus("ok", "Upit je poslat na email. Ako ga ne vidite, pogledajte Spam.");
-      }
+      setStatus("ok", "Upit je poslat na email. Javićemo se uskoro.");
     } catch {
-      openMail(data);
       setStatus(
-        "ok",
-        "Otvara se vaš email da pošaljete upit na zion.mladenovac@gmail.com. Ako se ne otvori, pozovite 064 3773 269."
+        "err",
+        "Upit nije otišao. Pozovite 064 3773 269 ili pišite na zion.mladenovac@gmail.com."
       );
     } finally {
       if (button) {
