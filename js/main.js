@@ -22,8 +22,7 @@ if (menuBtn && nav) {
   });
   nav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      // Keep the link visible until navigation starts.
-      requestAnimationFrame(closeMenu);
+      window.setTimeout(closeMenu, 180);
     });
   });
   document.addEventListener("keydown", (e) => {
