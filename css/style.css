@@ -321,6 +321,7 @@ h1, h2, h3, .logo-text, .eyebrow, .btn {
 
 .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 16px; }
 .contact-card, form {
+  position: relative;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -341,6 +342,23 @@ input, textarea, select {
   background: #fbfaf7;
 }
 textarea { min-height: 140px; resize: vertical; }
+.hp {
+  position: absolute;
+  left: -9999px;
+  height: 0;
+  width: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-status {
+  margin: 12px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.form-status.ok { background: #e8f6ea; color: #146c2e; }
+.form-status.err { background: #fde8e8; color: var(--red-dark); }
+.btn:disabled { opacity: 0.65; cursor: wait; }
 .map { margin-top: 18px; border-radius: var(--radius); overflow: hidden; }
 .map iframe { width: 100%; height: min(50vw, 320px); min-height: 240px; border: 0; }
 

@@ -62,13 +62,14 @@
       </div>
       <form id="upit">
         <h2>Pošalji upit</h2>
-        <p>Forma otvara WhatsApp sa unetim podacima. Ništa se ne čuva na serveru.</p>
+        <p>Upit stiže direktno na email. Odgovaramo čim stignemo, obično istog dana.</p>
+        <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
         <label for="ime">Ime</label>
-        <input id="ime" name="ime" required>
+        <input id="ime" name="ime" required autocomplete="name">
         <label for="telefon">Telefon</label>
-        <input id="telefon" name="telefon" required>
+        <input id="telefon" name="telefon" required autocomplete="tel">
         <label for="email">Email</label>
-        <input id="email" name="email" type="email">
+        <input id="email" name="email" type="email" autocomplete="email">
         <label for="usluga">Usluga</label>
         <select id="usluga" name="usluga">
           <option>Selidba stana</option>
@@ -82,7 +83,8 @@
         </select>
         <label for="poruka">Poruka</label>
         <textarea id="poruka" name="poruka" placeholder="Odakle, kuda, sprat, lift, šta otprilike selite..."></textarea>
-        <p><button class="btn btn-red" type="submit">Pošalji na WhatsApp</button></p>
+        <p><button class="btn btn-red" type="submit">Pošalji upit</button></p>
+        <p class="form-status" hidden></p>
       </form>
     </div>
     <div class="wrap map">
