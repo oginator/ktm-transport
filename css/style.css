@@ -382,6 +382,23 @@ textarea { min-height: 140px; resize: vertical; }
 }
 .site-footer a { color: #fff; text-decoration: none; }
 .site-footer h3 { margin: 0 0 10px; text-transform: uppercase; }
+.footer-ig {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 12px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.footer-ig svg { width: 22px; height: 22px; display: block; }
+.footer-ig:hover {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
+}
 .footer-brand {
   display: block;
   margin: 0;
