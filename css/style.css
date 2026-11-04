@@ -48,7 +48,7 @@ h1, h2, h3, .logo-text, .eyebrow, .btn {
   justify-content: space-between;
   gap: 12px;
   min-height: 62px;
-  padding: 6px 10px 6px 8px;
+  padding: 6px 10px 6px 14px;
   background: #0d0d0d;
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 999px;
@@ -70,7 +70,7 @@ h1, h2, h3, .logo-text, .eyebrow, .btn {
 }
 .brand img {
   width: auto;
-  height: 50px;
+  height: 36px;
   object-fit: contain;
   background: transparent;
   border-radius: 0;
