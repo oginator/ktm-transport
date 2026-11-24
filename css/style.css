@@ -231,7 +231,13 @@ h1, h2, h3, .logo-text, .eyebrow, .btn {
 
 .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
 .reviews-more { margin: 18px 0 0; }
-.reviews-more a { color: var(--red); font-weight: 700; text-decoration: none; }
+.reviews-more a:not(.btn) { color: var(--red); font-weight: 700; text-decoration: none; }
+.reviews-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
 .review { padding: clamp(20px, 3vw, 28px); }
 .stars { color: #c9a227; letter-spacing: 2px; margin-bottom: 8px; }
 .review p { font-size: clamp(17px, 2vw, 20px); margin: 0 0 16px; }
@@ -254,11 +260,46 @@ h1, h2, h3, .logo-text, .eyebrow, .btn {
 .gallery {
   display: grid;
   grid-template-columns: 1.4fr 1fr 1fr;
-  grid-template-rows: minmax(160px, 22vw) minmax(160px, 22vw);
+  grid-auto-rows: minmax(160px, 22vw);
   gap: 12px;
 }
-.gallery img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
-.gallery img:first-child { grid-row: 1 / span 2; }
+.gallery-item {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.gallery > :first-child { grid-row: 1 / span 2; }
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.88);
+  cursor: zoom-out;
+}
+.lightbox[hidden] { display: none; }
+.lightbox img {
+  max-width: min(96vw, 1100px);
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+}
 
 .cta {
   background: var(--ink);
@@ -329,6 +370,11 @@ h1, h2, h3, .logo-text, .eyebrow, .btn {
 .contact-card a { color: var(--red); font-weight: 700; text-decoration: none; }
 .contact-card .btn { color: #fff; margin: 4px 6px 4px 0; }
 .contact-card .btn-line { color: var(--ink); }
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
 label { display: block; font-weight: 600; margin: 12px 0 6px; }
 input, textarea, select {
   width: 100%;
@@ -367,6 +413,23 @@ textarea { min-height: 140px; resize: vertical; }
 .article { max-width: 780px; }
 .article h2 { margin-top: 28px; font-size: clamp(22px, 4vw, 28px); }
 .article p, .article li { font-size: clamp(16px, 2vw, 18px); }
+
+.faq { display: grid; gap: 10px; }
+.faq details {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 4px 18px;
+}
+.faq summary {
+  cursor: pointer;
+  font-family: Oswald, "Arial Narrow", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 14px 0;
+}
+.faq details p { margin: 0 0 16px; color: var(--muted); }
 
 .site-footer {
   background: #0d0d0d;
@@ -437,8 +500,8 @@ textarea { min-height: 140px; resize: vertical; }
 
 @media (max-width: 1024px) {
   .cards, .services-grid { grid-template-columns: 1fr 1fr; }
-  .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px 200px; }
-  .gallery img:first-child { grid-row: auto; grid-column: 1 / span 2; height: 240px; }
+  .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; }
+  .gallery > :first-child { grid-row: auto; grid-column: 1 / span 2; height: 240px; }
 }
 
 @media (max-width: 980px) {
@@ -463,7 +526,7 @@ textarea { min-height: 140px; resize: vertical; }
 }
 
 @media (max-width: 860px) {
-  .about, .contact-grid, .blog-grid, .reviews, .service-row {
+  .about, .contact-grid, .blog-grid, .reviews, .service-row, .form-row {
     grid-template-columns: 1fr;
   }
   .footer-grid {
@@ -497,8 +560,8 @@ textarea { min-height: 140px; resize: vertical; }
 
 @media (max-width: 560px) {
   .cards, .services-grid, .blog-grid { grid-template-columns: 1fr; }
-  .gallery { grid-template-columns: 1fr; grid-template-rows: none; }
-  .gallery img, .gallery img:first-child { grid-column: auto; height: 200px; }
+  .gallery { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+  .gallery > :first-child { grid-column: auto; height: 200px; }
   .logo-text { font-size: 14px; }
   .cta { border-radius: 18px; }
 }

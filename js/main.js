@@ -51,6 +51,9 @@ if (form) {
       `Telefon: ${data.telefon || ""}`,
       `Email: ${data.email || "nije naveden"}`,
       `Usluga: ${data.usluga || ""}`,
+      `Odakle: ${data.odakle || ""}`,
+      `Kuda: ${data.kuda || ""}`,
+      `Datum: ${data.datum || "nije naveden"}`,
       `Poruka: ${data.poruka || ""}`,
     ].join("\n");
 
@@ -85,6 +88,9 @@ if (form) {
           telefon: data.telefon || "",
           email: data.email || MAIL,
           usluga: data.usluga || "",
+          odakle: data.odakle || "",
+          kuda: data.kuda || "",
+          datum: data.datum || "nije naveden",
           message: inquiryText(data),
           botcheck: "",
         }),
@@ -104,5 +110,33 @@ if (form) {
         button.textContent = oldLabel;
       }
     }
+  });
+}
+
+const gallery = document.querySelector(".gallery");
+if (gallery) {
+  const box = document.createElement("div");
+  box.className = "lightbox";
+  box.hidden = true;
+  box.setAttribute("role", "dialog");
+  box.setAttribute("aria-label", "Pregled slike");
+  box.innerHTML = "<img alt=\"\">";
+  document.body.appendChild(box);
+  const full = box.querySelector("img");
+  const close = () => {
+    box.hidden = true;
+    full.removeAttribute("src");
+  };
+  gallery.querySelectorAll(".gallery-item").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const img = btn.querySelector("img");
+      full.src = btn.getAttribute("data-full") || (img && img.src) || "";
+      full.alt = (img && img.alt) || "";
+      box.hidden = false;
+    });
+  });
+  box.addEventListener("click", close);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !box.hidden) close();
   });
 }
